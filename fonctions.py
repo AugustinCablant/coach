@@ -12,7 +12,9 @@ class Coaching:
         pass
 
     def creer_dataframe_mois(self):
-        """Crée un DataFrame avec les jours de la semaine en colonnes et les semaines en lignes."""
+        """
+        Crée un DataFrame avec les jours de la semaine en colonnes et les semaines en lignes.
+        """
         semaines = ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4']
         jours = self.semaine.copy()
         df = pd.DataFrame(index=semaines, columns=jours)
@@ -27,7 +29,7 @@ class Coaching:
             'Vendredi': [],
             'Samedi': [],
             'Dimanche': []}
-        for jour, i in enumerate(self.semaine):
+        for i, jour in enumerate(self.semaine):
             semaine[jour] = liste[i]
         return semaine
 
@@ -69,10 +71,10 @@ class Coaching:
 
         SEMAINES = [semaine1, semaine2, semaine3, semaine4]
 
-        for semaine, i in enumerate(df.index):
+        for i, semaine in enumerate(df.index):
             SEMAINE = SEMAINES[i]
             for jour in df.columns:
-                df.loc[semaine, jour] = '\n'.join(SEMAINE[jour])
+                df.loc[semaine, jour] = SEMAINE[jour]
         return df
 
 
@@ -151,12 +153,16 @@ class Coaching:
                 2 x (4 x 400 en 65 R45) R120 + 2 x (4 x 300 en 47 R30) R60
                 """
                 seance = ""
-                for sub in liste : 
-                    [nbb, nbr, d, t, rb, rr] = sub
-                    seance = seance + f"{nbb} x ({nbr} x {d} en {t} R{rb}) R{rr}" 
+                if len(np.array(liste).flatten()) != len(liste):
+                    for sub in liste : 
+                        [nbb, nbr, d, t, rb, rr] = sub
+                else: 
+                    [nbb, nbr, d, t, rb, rr] = liste
+                
+                seance = seance + f"{nbb} x ({nbr} x {d} en {t} R{rb}) R{rr}" 
                 seance = (
-                    seance
-                )
+                        seance
+                    )
                 return seance
 
             def seuil(self, liste):
