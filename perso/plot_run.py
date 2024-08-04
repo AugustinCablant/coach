@@ -83,7 +83,6 @@ events = [
 # Créer le DataFrame des événements
 events_df = pd.DataFrame(events)
 
-# Données de volume d'entraînement hebdomadaire
 training_volume = [
     {'Start Date': '2018-06-24', 'End Date': '2019-06-23', 'Volume (km/week)': 15},
     {'Start Date': '2019-06-24', 'End Date': '2020-06-23', 'Volume (km/week)': 25},
@@ -93,6 +92,10 @@ training_volume = [
     {'Start Date': '2023-06-01', 'End Date': '2023-11-30', 'Volume (km/week)': 100},
     {'Start Date': '2023-12-01', 'End Date': '2023-12-31', 'Volume (km/week)': 130},
     {'Start Date': '2024-01-01', 'End Date': '2024-03-31', 'Volume (km/week)': 150},
+    {'Start Date': '2024-04-01', 'End Date': '2024-04-15', 'Volume (km/week)': 180},
+    {'Start Date': '2024-04-16', 'End Date': '2024-04-30', 'Volume (km/week)': 160},
+    {'Start Date': '2024-05-01', 'End Date': '2024-06-15', 'Volume (km/week)': 150},
+    {'Start Date': '2024-06-16', 'End Date': '2024-06-30', 'Volume (km/week)': 130},
     {'Start Date': '2024-07-01', 'End Date': '2024-08-31', 'Volume (km/week)': 50},
 ]
 
@@ -107,6 +110,7 @@ events_df['Date'] = pd.to_datetime(events_df['Date'])
 # Créer le graphique de volume d'entraînement
 fig1 = go.Figure()
 
+# Ajout du volume d'entraînement
 fig1.add_trace(go.Scatter(
     x=training_df['Start Date'],
     y=training_df['Volume (km/week)'],
@@ -115,6 +119,7 @@ fig1.add_trace(go.Scatter(
     line=dict(color='blue')
 ))
 
+# Ajout des événements
 for _, event in events_df.iterrows():
     fig1.add_trace(go.Scatter(
         x=[event['Date']],
@@ -134,7 +139,7 @@ fig1.update_layout(
     height=500
 )
 
-# Créer le tableau pour les descriptions des événements
+"""# Créer le tableau pour les descriptions des événements
 fig2 = go.Figure(data=[go.Table(
     header=dict(values=['Description']),
     cells=dict(values=[
@@ -147,10 +152,10 @@ fig2 = go.Figure(data=[go.Table(
 fig2.update_layout(
     title='Descriptions des Événements',
     height=1200,
-)
+)"""
 
 # Sauvegarder les graphiques en PNG
 fig1.write_image("/Users/augustincablant/Documents/GitHub/coach/training_volume.png")
-fig2.write_image("/Users/augustincablant/Documents/GitHub/coach/events_table.png")
+#fig2.write_image("/Users/augustincablant/Documents/GitHub/coach/events_table.png")
 
 #pio.write_image(fig, '/Users/augustincablant/Documents/GitHub/coach/evolution.png', format='png')
